@@ -24,10 +24,10 @@ export class ProductListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getAllCoffee();
+    this.getAllProduct();
   }
   // Get all products
-  getAllCoffee() {
+  getAllProduct() {
     this.productServices.getAllProducts().subscribe({
       next: (res: any) => {
         this.products = res;
