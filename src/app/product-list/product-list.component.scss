@@ -1,0 +1,114 @@
+/* Variables */
+$font-color: #555;
+$border-color: #ccc;
+$hover-shadow: rgba(0, 0, 0, 0.1);
+$primary-font-size: 1.2rem;
+$large-font-size: 2rem;
+$highlight-color: #333;
+.product-section {
+  background-color: #e1e1e1;
+  padding: 2rem;
+}
+.product-container {
+  text-align: center;
+  margin: 2rem;
+
+  .fakedb {
+    font-size: $large-font-size;
+    font-weight: bold;
+  }
+
+  .sub-text {
+    font-size: $primary-font-size;
+    color: $font-color;
+  }
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  text-align: center;
+  margin: 0;
+  padding: 1rem;
+
+  .product-item {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    background-color: #ffffff;
+
+    &:hover {
+      box-shadow: 0px 4px 15px $hover-shadow;
+    }
+
+    .category {
+      font-size: 1.1rem;
+      color: darken($font-color, 20%);
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      color: $highlight-color;
+      font-weight: 600;
+    }
+  }
+}
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  button {
+    padding: 7px 10px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // Add styles for the active button (filter that is selected)
+  button.active {
+    background-color: #c7c7c7;
+    color: white;
+    border-color: #a1a1a1;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 1024px) {
+  .product-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+}
