@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductServices } from '../shared/services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IProductData } from '../shared/interfaces/product';
 
 @Component({
   selector: 'app-product-details',
@@ -10,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProductDetailsComponent {
   productId!: number;
-  product: any;
+  product!: IProductData;
   isEditing: boolean = false;
   productForm: FormGroup;
 

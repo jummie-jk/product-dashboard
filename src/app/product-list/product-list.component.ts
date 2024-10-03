@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SmallButtonComponent } from '../components/buttons/small-button.component';
 import { OutlinedButtonComponent } from '../components/buttons/outlined-button.component';
 import { Router } from '@angular/router';
+import { IProduct } from '../shared/interfaces/product';
 
 @Component({
   selector: 'app-product-list',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent {
-  products: any[] = [];
+  products: IProduct[] = [];
   filter: string = '';
 
   constructor(
