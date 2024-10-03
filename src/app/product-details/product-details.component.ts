@@ -29,11 +29,11 @@ export class ProductDetailsComponent {
   ngOnInit(): void {
     this.productId = +this.route.snapshot.paramMap.get('productId')!;
     this.getProductDetails(this.productId);
+    this.loadProduct();
+    this.initializeForm();
   }
 
-  toggleEdit(): void {
-    this.isEditing = !this.isEditing;
-  }
+
   // Get Product Details
   getProductDetails(productId: number): void {
     this.productServices.getProductById(productId).subscribe({
@@ -50,6 +50,24 @@ export class ProductDetailsComponent {
       },
     });
   }
+  
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+  }
+
+  initializeForm(): void {
+    if (this.product) {
+      this.productForm.patchValue({
+        name: this.product.name,
+        price: this.product.price,
+        // Initialize other fields as needed
+      });
+    }
+  }
+
+  loadProduct(): void {
+    this.product = JSON.parse(localStorage.getItem('currentProduct') || '{}');
+  }
 
   // Edit Product
   updateProduct(): void {
@@ -58,18 +76,34 @@ export class ProductDetailsComponent {
         ...this.product,
         ...this.productForm.value,
       };
-
-      this.productServices
-        .updateProduct(this.productId, updatedProduct)
-        .subscribe({
-          next: () => {
-            this.isEditing = false;
-            this.getProductDetails(this.productId);
-          },
-          error: (err) => {
-            console.error('Error updating product', err);
-          },
-        });
+      localStorage.setItem('currentProduct', JSON.stringify(updatedProduct));
+      this.product = updatedProduct;
+      this.isEditing = false;
     }
   }
+
+  // Edit Product
+  // updateProduct(): void {
+  //   if (this.productForm.valid) {
+  //     const updatedProduct = {
+  //       ...this.product,
+  //       ...this.productForm.value,
+  //     };
+
+  //     this.productServices
+  //       .updateProduct(this.productId, updatedProduct)
+  //       .subscribe({
+  //         next: () => {
+  //           this.isEditing = false;
+  //           this.getProductDetails(this.productId);
+  //         },
+  //         error: (err) => {
+  //           console.error('Error updating product', err);
+  //         },
+  //       });
+  //   }
+  // }
+
+  
+
 }

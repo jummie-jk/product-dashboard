@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { IProduct, IProductData } from '../interfaces/product';
 
 @Injectable({
@@ -9,8 +9,10 @@ import { IProduct, IProductData } from '../interfaces/product';
 export class ProductServices {
   baseUrl: string = 'assets/products.json';
   baseUrll: string = 'http://localhost:3000/products';
+  localStorageKey: string = 'products';
 
-  constructor(private httpClient: HttpClient, private http: HttpClient) {}
+  constructor(private httpClient: HttpClient,) {
+  }
 
   // Service to perform CRUD )perations
   getAllProducts(): Observable<IProduct[]> { 
@@ -29,8 +31,15 @@ export class ProductServices {
     );
   }
 
-  updateProduct(productId: number, productData: IProductData): Observable<any> {
-    return this.httpClient.post(`${productId}`, productData);
+  // updateProduct(productId: number, productData: IProductData): Observable<any> {
+  //   return this.httpClient.post(`${productId}`, productData);
+  // }
+  
+  updateProduct(productId: number, updatedProduct: IProductData): Observable<void> {
+    let products: IProductData[] = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+    products = products.map((product) => (product.id === productId ? updatedProduct : product));
+    localStorage.setItem(this.localStorageKey, JSON.stringify(products));
+    return of();
   }
 
 }
